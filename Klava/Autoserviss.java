@@ -138,8 +138,44 @@ public class Autoserviss {
             }
         }
     }
-    
+
+    public void startMenu() {
+        while (true) {
+            String[] opcijas = {
+                "Pievienot jaunu automašīnu",
+                "Apskatīt visas automašīnas", 
+                "Dzēst automašīnu",
+                "Iziet"
+            };
+            
+            String izvele = (String) JOptionPane.showInputDialog(null,
+                "AUTOSERVISS - PĀRVALDĪBA\n\nIzvēlieties darbību:",
+                "Galvenā izvēlne",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcijas,
+                opcijas[0]);
+                
+            if (izvele == null || izvele.equals("Iziet")) {
+                int apstiprinat = JOptionPane.showConfirmDialog(null,
+                    "Vai tiešām vēlaties iziet?",
+                    "Iziet",
+                    JOptionPane.YES_NO_OPTION);
+                if (apstiprinat == JOptionPane.YES_OPTION) {
+                    break;
+                }
+            } else if (izvele.equals("Pievienot jaunu automašīnu")) {
+                pievienotAuto();
+            } else if (izvele.equals("Apskatīt visas automašīnas")) {
+                apskatitVisasAutomasinas();
+            } else if (izvele.equals("Dzēst automašīnu")) {
+                dzestAutomasinu();
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        
+        Autoserviss serviss = new Autoserviss();
+        serviss.startMenu();
     }
 }
