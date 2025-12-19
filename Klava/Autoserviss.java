@@ -1,6 +1,76 @@
 package Klava;
 
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 public class Autoserviss {
+    private ArrayList<Automasina> automasinas;
+    
+    public Autoserviss() {
+        this.automasinas = new ArrayList<>();
+    }
+    
+    public void pievienotAuto() {
+        try {
+            // Ievadām automašīnas pamatdatus
+            String marka = JOptionPane.showInputDialog(null, "Ievadiet automašīnas marku:");
+            if (marka == null || marka.trim().isEmpty()) return;
+            
+            String modelis = JOptionPane.showInputDialog(null, "Ievadiet automašīnas modeli:");
+            if (modelis == null || modelis.trim().isEmpty()) return;
+            
+            // Izveidojam stūri
+            String stureTips = JOptionPane.showInputDialog(null, "Ievadiet stūres tipu:");
+            if (stureTips == null || stureTips.trim().isEmpty()) return;
+            Sture sture = new Sture(stureTips);
+            
+            // Izveidojam riteņus
+            Ritenis[] riteni = new Ritenis[4];
+            for (int i = 0; i < 4; i++) {
+                String ritenaTips = JOptionPane.showInputDialog(null, 
+                    "Ievadiet " + (i + 1) + ". riteņa tipu:");
+                if (ritenaTips == null || ritenaTips.trim().isEmpty()) return;
+                
+                String izmersStr = JOptionPane.showInputDialog(null, 
+                    "Ievadiet " + (i + 1) + ". riteņa izmēru (collas):");
+                if (izmersStr == null || izmersStr.trim().isEmpty()) return;
+                int izmers = Integer.parseInt(izmersStr);
+                
+                riteni[i] = new Ritenis(ritenaTips, izmers, i + 1);
+            }
+            
+            // Izveidojam ātrumkārbu
+            String[] atrumkarbasVeidi = {"Manuāla", "Automātiska", "Robotizēta"};
+            String atrumkarbasVeids = (String) JOptionPane.showInputDialog(null,
+                "Izvēlieties ātrumkārbas veidu:",
+                "Ātrumkārba",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                atrumkarbasVeidi,
+                atrumkarbasVeidi[0]);
+            if (atrumkarbasVeids == null) return;
+            Atrumkarba atrumkarba = new Atrumkarba(atrumkarbasVeids);
+            
+            // Izveidojam automašīnu
+            Automasina jauna = new Automasina(marka, modelis, sture, riteni, atrumkarba);
+            automasinas.add(jauna);
+            
+            JOptionPane.showMessageDialog(null, 
+                "Automašīna veiksmīgi pievienota!\nKopā autoserviss: " + automasinas.size());
+                
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, 
+                "Kļūda! Ievadiet pareizu skaitli!", 
+                "Ievades kļūda", 
+                JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, 
+                "Notikusi kļūda: " + e.getMessage(), 
+                "Kļūda", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public static void main(String[] args) {
         
     }
