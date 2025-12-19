@@ -97,6 +97,48 @@ public class Autoserviss {
             "Visas automašīnas", 
             JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public void dzestAutomasinu() {
+        if (automasinas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, 
+                "Autoservisā nav nevienas automašīnas!", 
+                "Nav datu", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Izveidojam sarakstu izvēlei
+        String[] opcijas = new String[automasinas.size()];
+        for (int i = 0; i < automasinas.size(); i++) {
+            opcijas[i] = (i + 1) + ". " + automasinas.get(i).getApraksts().split("\n")[1];
+        }
+        
+        String izvelne = (String) JOptionPane.showInputDialog(null,
+            "Izvēlieties automašīnu dzēšanai:",
+            "Dzēst automašīnu",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            opcijas,
+            opcijas[0]);
+            
+        if (izvelne != null) {
+            int indekss = Integer.parseInt(izvelne.split("\\.")[0]) - 1;
+            
+            int apstiprinajums = JOptionPane.showConfirmDialog(null,
+                "Vai tiešām vēlaties dzēst šo automašīnu?\n\n" + 
+                automasinas.get(indekss).getApraksts(),
+                "Apstiprināt dzēšanu",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+                
+            if (apstiprinajums == JOptionPane.YES_OPTION) {
+                automasinas.remove(indekss);
+                JOptionPane.showMessageDialog(null, 
+                    "Automašīna veiksmīgi izdzēsta!\nAtlikušās: " + automasinas.size());
+            }
+        }
+    }
+    
     public static void main(String[] args) {
         
     }
