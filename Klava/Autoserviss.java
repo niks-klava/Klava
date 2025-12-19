@@ -71,6 +71,32 @@ public class Autoserviss {
                 JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    public void apskatitVisasAutomasinas() {
+        if (automasinas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, 
+                "Autoservisā nav nevienas automašīnas!", 
+                "Nav datu", 
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        StringBuilder viss = new StringBuilder();
+        viss.append("AUTOSERVISĀ ESOŠĀS AUTOMAŠĪNAS:\n");
+        viss.append("Kopā: " + automasinas.size() + "\n\n");
+        viss.append("=".repeat(40) + "\n\n");
+        
+        for (int i = 0; i < automasinas.size(); i++) {
+            viss.append("Nr. " + (i + 1) + "\n");
+            viss.append(automasinas.get(i).getApraksts());
+            viss.append("=".repeat(40) + "\n\n");
+        }
+        
+        JOptionPane.showMessageDialog(null, 
+            viss.toString(), 
+            "Visas automašīnas", 
+            JOptionPane.INFORMATION_MESSAGE);
+    }
     public static void main(String[] args) {
         
     }
